@@ -10,20 +10,18 @@ void print_decompose(int d, int cnt) {
 }
 
 void decompose(int n) {
-    int cnt = 0,d = 2;
+    int cnt = 0, d = 2;
     while (n > 1) {
         if (n % d == 0) {
             n /= d;
             cnt++;
-        }
-        else {
+        } else {
             if (cnt != 0)
                 print_decompose(d, cnt);
             cnt = 0;
             if (d % 2 == 0) {
                 d++;
-            }
-            else
+            } else
                 d += 2;
         }
         if (n == 1 && cnt != 0) {
@@ -49,18 +47,18 @@ void check_digit(int x, int a[10]) {
     if (x < 0)
         x = -x;
     while (x != 0) {
-        a[x%10] = 1;
+        a[x % 10] = 1;
         x /= 10;
     }
 }
 
 void longest_sequence(int n, int v[101]) {
-    int  len = 1, max_len = 0, start = 1, max_start, max_end;
+    int len = 1, max_len = 0, start = 1, max_start, max_end;
     for (int i = 2; i <= n; i++) {
         bool ok = true;
         int a1[10] = {};
         int a2[10] = {};
-        check_digit(v[i-1], a1);
+        check_digit(v[i - 1], a1);
         check_digit(v[i], a2);
         for (int j = 0; j < 10; j++) {
             if (a1[j] != a2[j]) {
@@ -69,13 +67,12 @@ void longest_sequence(int n, int v[101]) {
         }
         if (ok) {
             len++;
-            if (len>max_len) {
+            if (len > max_len) {
                 max_len = len;
                 max_start = start;
                 max_end = i;
             }
-        }
-        else {
+        } else {
             start = i;
             len = 1;
         }

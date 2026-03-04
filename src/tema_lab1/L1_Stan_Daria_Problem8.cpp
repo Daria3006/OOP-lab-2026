@@ -6,10 +6,23 @@ void print_pair(int q, int p) {
     cout << "q = " << q << ", p = " << p << endl;
 }
 
-void find_pair(int p) {
+bool prim(int x) {
+    for (int d=2; d <= x/2; d++) {
+        if (x%d==0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool find_pair(int p) {
     int q;
     q = p + 2;
-    print_pair(q, p);
+    if (prim(p) && prim(q)) {
+        print_pair(q, p);
+        return true;
+    }
+    return false;
 }
 
 void a() {
@@ -17,13 +30,17 @@ void a() {
     cout << "a)" << endl;
     cout << "n = ";
     cin >> n;
-    for (int p=1; p <= n; p++) {
-        find_pair(p);
+    int cnt = 1, p =2;
+    while (cnt <= n) {
+        if (find_pair(p)) {
+            cnt ++;
+        }
+        p++;
     }
 }
 
 void print_sequence(int v[100], int start, int end) {
-    for (int i = start; i<= end; i++) {
+    for (int i = start; i <= end; i++) {
         cout << v[i] << " ";
     }
 }
@@ -31,15 +48,14 @@ void print_sequence(int v[100], int start, int end) {
 void get_longest(int n, int v[100]) {
     int len = 1, max_len = 0, start = 1, max_start, max_end;
     for (int i = 2; i <= n; i++) {
-        if (v[i] < v[i-1]) {
-            len ++;
+        if (v[i] < v[i - 1]) {
+            len++;
             if (len > max_len) {
                 max_len = len;
                 max_start = start;
                 max_end = i;
             }
-        }
-        else{
+        } else {
             len = 1;
             start = i;
         }
@@ -52,7 +68,7 @@ void b() {
     cout << "b)" << endl;
     cout << "n = ";
     cin >> n;
-    cout << endl <<  "Enter numbers: ";
+    cout << endl << "Enter numbers: ";
     for (int i = 1; i <= n; i++) {
         cin >> v[i];
     }
